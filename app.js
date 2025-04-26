@@ -55,7 +55,9 @@ app.delete("/:id" , async (req,res)=>{
 app.put("/:id" , async(req,res)=>{
     const  {id} = req.params 
     const { name} = req.body
-    const updateTodos  = `UPDATE todos SET name  = '${name}'`;
+    const selectTodos  = `SELECT * FROM todos WHERE id = '${id}'`;
+    const dbResponse  = await databse.get(selectTodos);
+    const updateTodos  = `UPDATE todos SET name  = '${name || dbResponse.name }'  WHERE id ='${id}'`;
     const dbResponse1 = await database.run(updateTodos)
     res.status(200).send("updated")
 })
