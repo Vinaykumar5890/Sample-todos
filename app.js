@@ -40,7 +40,7 @@ app.get("/" , async (req,res)=>{
 app.post("/", async (req,res)=>{
     const{name} = req.body
     const ids  = uuidv4();
-    const postTodos = `INSERT INTO todos(id,name) VALUES '${ids}' , '${name}'`;
+    const postTodos = `INSERT INTO todos(id,name) VALUES ('${ids}' , '${name}')`;
     const dbResponse = await database.run(postTodos)
     res.status(200).send(dbResponse)
 })
