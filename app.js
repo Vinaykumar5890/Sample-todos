@@ -52,12 +52,12 @@ app.delete("/:id" , async (req,res)=>{
     res.status(201).send("Deleted")
 })
 
-app.put("/:id" , async(req,res)=>{
-    const  {id} = req.params 
-    const { name} = req.body
-    const updateTodos  = `UPDATE todos SET name  = '${name}'  WHERE id ='${id}'`;
-    const dbResponse1 = await database.run(updateTodos)
-    res.status(200).send("updated")
-})
+app.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const updateTodos = `UPDATE todos SET name = ? WHERE id = ?`;
+  await database.run(updateTodos, [name, id]);
+  res.status(200).send("Updated");
+});
 
 module.exports = app
